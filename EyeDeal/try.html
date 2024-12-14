@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100..900&display=swap');
+
+    .cart-div {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+    }
+
+    .cart-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      width: 600px;
+      height: 600px;
+      border-radius: 12px;
+      border: solid rgb(145, 43, 43);
+      padding: 20px;
+      overflow: hidden; /* Prevents overflow from the main container */
+    }
+
+    .headingTexts {
+      flex-shrink: 9; 
+      position: absolute;
+      width: 90%;
+      height: 28px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .shopping-cart-title {
+      font-family: 'Poppins', sans-serif;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      color: #2b2a2a;
+    }
+
+    .item-quantity {
+      border: solid black;
+    }
+
+    .items-count {
+      font-family: 'Sansation', sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      color: #3B3B3B;
+    }
+
+    .product-container {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding: 20px;
+      width: 528px;
+      flex-grow: 1;
+      overflow-y: auto;
+      max-height: calc(100% - 60px);
+    }
+
+    .product-container::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .product-container::-webkit-scrollbar-thumb {
+      background-color: #888;
+      border-radius: 10px;
+      height: 5px;
+    }
+
+    .product-container::-webkit-scrollbar-thumb:hover {
+      background-color: #555;
+    }
+
+    .product-container::-webkit-scrollbar-track {
+      background-color: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .product-container::-webkit-scrollbar-track:hover {
+      background-color: #e0e0e0;
+    }
+
+    .product-container {
+      scrollbar-width: thin;
+      scrollbar-color: #888 #f1f1f1;
+    }
+
+    .product-row {
+      width: 100%;
+      height: 123px;
+      border-width: 1px 0;
+      border-style: solid;
+      border-color: #DCDCDC;
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      margin-top: 10px;
+    }
+
+    .product-img {
+      width: 101px;
+      height: 89px;
+      background: url(assets/BlueGradient.jpg);
+      background-size: cover;
+      margin-left: 20px;
+    }
+
+    .product-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-left: 50px;
+    }
+
+    .product-text span {
+      font-family: 'Sansation', sans-serif;
+      font-size: 11px;
+    }
+
+    .product-name {
+      font-weight: 700;
+      color: #3B3B3B;
+    }
+
+    .product-category {
+      font-weight: 400;
+      color: #776F6F;
+    }
+
+    .quantity-box {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 50px;
+    }
+
+    .quantity-box button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background-color 0.2s ease;
+      width: 15px;
+      height: 15px;
+    }
+
+    .quantity-box button img {
+      width: 8px;
+      height: 8px;
+    }
+
+    .quantity-box button:hover {
+      background-color: #d3d3d3;
+      border-radius: 20px;
+    }
+
+    .quantity-box button:active {
+      background-color: #a9a9a9;
+      border-radius: 20px;
+    }
+
+    .product-price {
+      font-family: 'Sansation', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: #000000;
+      margin-left: 50px;
+    }
+
+    .remove-btn {
+      width: 18px;
+      height: 18px;
+      background-color: white;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 50px;
+    }
+
+    .remove-btn img {
+      width: 10px;
+      height: 10px;
+    }
+
+    .remove-btn:hover {
+      background-color: #d3d3d3;
+      border-radius: 20px;
+    }
+
+    .remove-btn:active {
+      background-color: #a9a9a9;
+      border-radius: 20px;
+    }
+
+    .checkbox-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    label {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border: 2px solid #000;
+      border-radius: 2px;
+      background-color: #fff;
+      cursor: pointer;
+      position: relative;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    label::after {
+      content: "✔";
+      color: #fff;
+      font-size: 14px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    input[type="checkbox"]:checked + label {
+      background-color: #28a745;
+      border-color: #28a745;
+    }
+
+    input[type="checkbox"]:checked + label::after {
+      opacity: 1;
+    }
+
+    .checkout-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      margin-top: 20px;
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .checkout-btn:hover {
+      background-color: #45a049;
+    }
+
+    .checkout-btn:active {
+      background-color: #388e3c;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="cart-div">
+    <div class="cart-container">
+
+      <div class="headingTexts">
+        <h1 class="shopping-cart-title">Shopping Cart</h1>
+        <p class="items-count">3 items</p>
+      </div>
+
+      <div class="product-container">
+        <!-- Example product row 1 -->
+        <div class="product-row">
+          <div class="checkbox-wrapper">
+            <input type="checkbox" id="custom-checkbox-1">
+            <label for="custom-checkbox-1"></label>
+          </div>
+
+          <div class="product-img"></div>
+          <div class="product-text">
+            <span class="product-category">Optical</span>
+            <span class="product-name">Lace</span>
+          </div>
+
+          <div class="quantity-box">
+            <button>
+              <img src="assets/buttons/minus-sign.png" alt="minus">
+            </button>
+            <input type="text" value="1" style="width: 30px; text-align: center; margin: 0 10px;">
+            <button>
+              <img src="assets/buttons/plus-sign.png" alt="plus">
+            </button>
+          </div>
+
+          <div class="product-price">$24</div>
+          <button class="remove-btn">
+            <img src="assets/buttons/remove-button.png" alt="">
+          </button>
+        </div>
+
+        <!-- Repeat for other product rows... -->
+
+      </div>
+
+      <div class="product-container">
+        <!-- Example product row 1 -->
+        <div class="product-row">
+          <div class="checkbox-wrapper">
+            <input type="checkbox" id="custom-checkbox-1">
+            <label for="custom-checkbox-1"></label>
+          </div>
+
+          <div class="product-img"></div>
+          <div class="product-text">
+            <span class="product-category">Optical</span>
+            <span class="product-name">Lace</span>
+          </div>
+
+          <div class="quantity-box">
+            <button>
+              <img src="assets/buttons/minus-sign.png" alt="minus">
+            </button>
+            <input type="text" value="1" style="width: 30px; text-align: center; margin: 0 10px;">
+            <button>
+              <img src="assets/buttons/plus-sign.png" alt="plus">
+            </button>
+          </div>
+
+          <div class="product-price">$24</div>
+          <button class="remove-btn">
+            <img src="assets/buttons/remove-button.png" alt="">
+          </button>
+        </div>
+
+        <div class="product-row">
+          <div class="checkbox-wrapper">
+            <input type="checkbox" id="custom-checkbox-1">
+            <label for="custom-checkbox-1"></label>
+          </div>
+
+          <div class="product-img"></div>
+          <div class="product-text">
+            <span class="product-category">Optical</span>
+            <span class="product-name">Lace</span>
+          </div>
+
+          <div class="quantity-box">
+            <button>
+              <img src="assets/buttons/minus-sign.png" alt="minus">
+            </button>
+            <input type="text" value="1" style="width: 30px; text-align: center; margin: 0 10px;">
+            <button>
+              <img src="assets/buttons/plus-sign.png" alt="plus">
+            </button>
+          </div>
+
+          <div class="product-price">$24</div>
+          <button class="remove-btn">
+            <img src="assets/buttons/remove-button.png" alt="">
+          </button>
+        </div>
+
+        <div class="product-row">
+          <div class="checkbox-wrapper">
+            <input type="checkbox" id="custom-checkbox-1">
+            <label for="custom-checkbox-1"></label>
+          </div>
+
+          <div class="product-img"></div>
+          <div class="product-text">
+            <span class="product-category">Optical</span>
+            <span class="product-name">Lace</span>
+          </div>
+
+          <div class="quantity-box">
+            <button>
+              <img src="assets/buttons/minus-sign.png" alt="minus">
+            </button>
+            <input type="text" value="1" style="width: 30px; text-align: center; margin: 0 10px;">
+            <button>
+              <img src="assets/buttons/plus-sign.png" alt="plus">
+            </button>
+          </div>
+
+          <div class="product-price">$24</div>
+          <button class="remove-btn">
+            <img src="assets/buttons/remove-button.png" alt="">
+          </button>
+        </div>
+
+        <!-- Repeat for other product rows... -->
+
+      </div>
+      
+
+      <div class="checkout-btn">
+        CHECKOUT
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Remove product on button click
+    document.querySelectorAll('.remove-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const productRow = button.closest('.product-row');
+        if (productRow) {
+          productRow.remove();
+        }
+      });
+    });
+
+    // Quantity update functionality
+    document.querySelectorAll('.quantity-box').forEach((box) => {
+      const minusButton = box.querySelector('button:first-child');
+      const plusButton = box.querySelector('button:last-child');
+      const quantityInput = box.querySelector('input');
+
+      minusButton.addEventListener('click', () => {
+        let currentQuantity = parseInt(quantityInput.value, 10);
+        if (!isNaN(currentQuantity) && currentQuantity > 0) {
+          quantityInput.value = currentQuantity - 1;
+        }
+      });
+
+      plusButton.addEventListener('click', () => {
+        let currentQuantity = parseInt(quantityInput.value, 10);
+        if (!isNaN(currentQuantity)) {
+          quantityInput.value = currentQuantity + 1;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

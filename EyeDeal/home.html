@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>EyeDeal - Home</title>
+        <link rel="stylesheet" href="home-style.css">
+        <script src="home-script.js"></script>
+    </head>
+
+    <body>
+        <div class="main-container">
+
+            <nav class="navbar">
+                <div class="navdiv">
+                    <div class="logo"><img class="logo-img" src="assets/logo2.png" alt="logo"></div>
+                    <input type="search" name="q" value="" placeholder="Search" class="search__field ui-autocomplete-input bc-sf-search-box" oninput="overrideDisplay()" onclick="overrideDisplay()" id="bc-sf-search-box-0" aria-live="polite" autocomplete="off" data-search-box="#bc-sf-search-box-0">
+                    <ul>
+                        <li><a href="http://127.0.0.1:5500/.HCI-Web/home.html">Home</a></li>
+                        <li><a href="http://127.0.0.1:5500/.HCI-Web/products.html">Products</a></li>
+                         <div class="button-container">
+                            <button id="contact-us-butn" onclick="toggleCartVisibility('click')"><p>Contact Us</p></button>
+                         </div>
+                    </ul>
+                </div>
+            </nav>
+
+            <section class="main-img-highlight">
+                <div class="img-placeholder"></div>
+                <div class="text-placeholder">see the world in full <span class="spectrum">spectrum</span>.</div>
+            </section>
+
+            <section class="featured-products">
+                <p>Featured Products</p>
+
+                <div class="main-product-container">
+
+                    <div class="product-container">
+                        <img src="assets/featured-products/Iris Classic - Tort/main-img.webp" data-hover="assets/featured-products/Iris Classic - Tort/men-img.webp" alt="">
+                        <div class="product-text-alt">
+                            <div class="product-name">Iris</div>
+                            <div class="product-color">Classic Tort</div>
+                        </div>
+                    </div>
+
+                    <div class="product-container">
+                        <img src="assets/featured-products/Jax - Ink Polarized/main-img.webp" data-hover="assets/featured-products/Jax - Ink Polarized/man-img.webp" alt="">
+                        <div class="product-text-alt">
+                            <div class="product-name">Jax</div>
+                            <div class="product-color">Ink Polarized</div>
+                        </div>
+                    </div>
+
+                    <div class="product-container">
+                        <img src="assets/featured-products/Keiko - Hojicha/main-img.webp" data-hover="assets/featured-products/Keiko - Hojicha/woman-img.webp" alt="">
+                        <div class="product-text-alt">
+                            <div class="product-name">Keiko</div>
+                            <div class="product-color">Hojicha</div>
+                        </div>
+                    </div>
+
+                    <div class="product-container">
+                        <img src="assets/featured-products/Nolan - Shale Orion Polarized/main-img.webp" data-hover="assets/featured-products/Nolan - Shale Orion Polarized/man-img.webp" alt="">
+                        <div class="product-text-alt">
+                            <div class="product-name">Nolan</div>
+                            <div class="product-color">Shale Orion</div>
+                        </div>
+                    </div>
+
+                    <div class="product-container">
+                        <img src="assets/featured-products/Nori - Shale/main-img.webp" data-hover="assets/featured-products/Nori - Shale/men-img.webp" alt="">
+                        <div class="product-text-alt">
+                            <div class="product-name">Nori</div>
+                            <div class="product-color">Shale</div>
+                        </div>
+                    </div>
+
+                    <div class="product-container">
+                        <img src="assets/featured-products/Wilmur - Mint Chocolate/main-img.webp" data-hover="assets/featured-products/Wilmur - Mint Chocolate/woman-img.webp" alt="">
+                        <div class="product-text-alt">
+                            <div class="product-name">Wilmur</div>
+                            <div class="product-color">Mint Choco</div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- The Contact Us Pop-up -->
+            <div id="contact-us-popup" class="contact-us-popup">
+                <div class="popup-content">
+                    <!-- Close button -->
+                    <!-- <button id="close-btn" class="close-btn" onclick="toggleCartVisibility('close')">&times;</button> -->
+                    <button id="close-btn" class="close-btn">&times;</button>
+                    <h2>Contact Us</h2>
+                    <p>Have questions? Send us a message!</p>
+
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="3" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+<!-- Floating "About Us" Button -->
+<button id="about-us-btn" class="floating-btn">About Us</button>
+
+<!-- About Us Popup -->
+<div id="about-us-popup" class="popup-overlay">
+    <div class="popup-box">
+        <!-- Close Button -->
+        <span class="close-btn" id="close-about-us">&times;</span>
+        <h2>About Us</h2>
+        <p>
+            Welcome to <strong>EyeDeal</strong>! We are passionate about helping you see the world clearly and beautifully. 
+            From premium sunglasses to optical solutions, we combine style and quality to meet all your vision needs.
+        </p><hr>
+        
+        <h3>Our Mission</h3>
+        <p>
+            To deliver stylish, high-quality eyewear that enhances your confidence and vision while ensuring affordability and sustainability.
+        </p><hr>
+
+        <h3>Our Story</h3>
+        <p>
+            Founded in 2024, EyeDeal has been committed to revolutionizing eyewear by blending fashion and function. 
+            With our dedicated team, we've served thousands of customers across the globe.
+        </p>
+
+        <!-- Social Media Links -->
+        <div class="social-links">
+            <a href="https://facebook.com" target="_blank" class="social-icon">Facebook</a>
+            <a href="https://instagram.com" target="_blank" class="social-icon">Instagram</a>
+            <a href="https://twitter.com" target="_blank" class="social-icon">Twitter</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+            <div class="footer-bottom">
+                <p id="footer-text">&copy; 2024 EyeDeal. All rights reserved.</p>
+            </div>
+            
+
+        </div>
+
+            
+        </div>
+    </body>
+</html>
