@@ -56,7 +56,7 @@ EyeDeal is a modern, user-centric platform dedicated to providing high-quality O
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-username/EyeDeal.git
+   https://github.com/AcePenaflorida/EyeDeal.git
 
 2. **Open**
    ```bash
