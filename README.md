@@ -2,7 +2,7 @@
 
 **See the world in full spectrum.**  
 [🎥 **Watch the full demo**](https://drive.google.com/drive/folders/1rXbfE87DFmXpwMx233Lq1BVeNhbrGFKd?usp=sharing)  
-
+[📖 **Read EyeDeal's Documentation**](https://docs.google.com/document/d/1GeAzEPSldmqNhQLnYqzvu6pK8EQiQw271t6NcvwSMcA/edit?usp=sharing)  
 ---
 
 ## ✨Overview
