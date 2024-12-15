@@ -6,7 +6,19 @@
 [🧷 **Backup**](https://drive.google.com/drive/folders/1rXbfE87DFmXpwMx233Lq1BVeNhbrGFKd?usp=sharing)  
 
 ---
+## 🏃‍♂️How to Run the Website
 
+1. **Clone the Repository:**
+   ```bash
+   https://github.com/AcePenaflorida/EyeDeal.git
+
+2. **Open**
+   ```bash
+   home.html
+
+2. **Right Click and open in your default browser.**
+
+---
 ## ✨Overview
 
 EyeDeal is a modern, user-centric platform dedicated to providing high-quality Optical and Sunglasses products. It offers a seamless shopping experience, allowing users to explore, select, and manage their favorite eyewear.
@@ -52,18 +64,6 @@ EyeDeal is a modern, user-centric platform dedicated to providing high-quality O
 
 - **Frontend:** HTML, CSS, and JavaScript.
 
----
 
-## 🏃‍♂️How to Run the Website
-
-1. **Clone the Repository:**
-   ```bash
-   https://github.com/AcePenaflorida/EyeDeal.git
-
-2. **Open**
-   ```bash
-   home.html
-
-2. **Right Click and open in your default browser.**
 
 
