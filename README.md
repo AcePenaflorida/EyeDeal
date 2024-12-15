@@ -21,6 +21,10 @@
 ---
 ## ✨Overview
 
+![Sample Image](https://drive.google.com/file/d/1F1x46qFuK_JViu2YqLz-6U2Uzfv6oPZS/view?usp=sharing)  
+*EyeDeal's Hompage*
+---
+
 EyeDeal is a modern, user-centric platform dedicated to providing high-quality Optical and Sunglasses products. It offers a seamless shopping experience, allowing users to explore, select, and manage their favorite eyewear.
 
 ---
