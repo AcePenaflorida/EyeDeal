@@ -1,718 +1,466 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>EyeDeal - Products</title>
-        <link rel="stylesheet" href="products-style.css">
-        <script>
-
-          document.addEventListener('DOMContentLoaded', function () {
-                    var btn = document.getElementById('btn');
-              
-                    var sunglassesText = document.getElementById('sunglasses');
-                    var sunglassesSection = document.getElementsByClassName("sunglasses-products")[0];
-
-                    var opticalText = document.getElementById('optical');
-                    var opticalSection = document.getElementsByClassName("optical-products")[0];
-
-                    function sunglassesClick() {
-                      btn.style.left = '0';
-                      sunglassesSection.style.display = 'block';
-                      opticalSection.style.display = 'none';
-                      sunglassesText.style.color = 'white';
-                      opticalText.style.color = 'black';
-                    }
-
-                    function opticalClick() {
-                      btn.style.left = '110px';
-                      opticalSection.style.display = 'block';
-                      sunglassesSection.style.display = 'none';
-                      sunglassesText.style.color = 'black';
-                      opticalText.style.color = 'white';
-                    }
-
-                    window.sunglassesClick = sunglassesClick;
-                    window.opticalClick = opticalClick;
-                  });
-
-                  
-          function toggleCartVisibility(method) {
-              const cartContainer = document.getElementById('cart-container');
-              if (method === "click") {
-                  // Toggle visibility if the method is "click"
-                  cartContainer.classList.toggle('visible');
-              } else if(method == "close") {
-                  // Ensure the cart is not visible when method is not "click"
-                  cartContainer.classList.remove('visible');
-              }
-          }
-
-          document.addEventListener("DOMContentLoaded", () => {
-              // Handle remove buttons
-            
-              const noProductText = document.getElementById('noProductText'); // Accessing the no product message
-              
-              const removeButtons = document.querySelectorAll('.remove-btn');
-              removeButtons.forEach(button => {
-                  button.addEventListener('click', function() {
-                      const productRow = button.closest('.product-row');
-                      if (productRow) {
-                          productRow.remove();  // Remove the entire product row from the DOM
-                      }
-                  });
-              });
-
-              
-
-              // Handle quantity buttons (minus and plus)
-              const minusButtons = document.querySelectorAll('.minus');
-              const plusButtons = document.querySelectorAll('.plus');
-              const quantityInputs = document.querySelectorAll('.quantity');
-
-              minusButtons.forEach((minusButton, index) => {
-                  minusButton.addEventListener('click', () => {
-                      const quantityInput = quantityInputs[index];
-                      let currentQuantity = parseInt(quantityInput.value, 10);
-                      if (!isNaN(currentQuantity) && currentQuantity > 1) {
-                          quantityInput.value = currentQuantity - 1;
-                      }
-                  });
-              });
-
-              plusButtons.forEach((plusButton, index) => {
-                  plusButton.addEventListener('click', () => {
-                      const quantityInput = quantityInputs[index];
-                      let currentQuantity = parseInt(quantityInput.value, 10);
-                      if (!isNaN(currentQuantity)) {
-                          quantityInput.value = currentQuantity + 1;
-                      }
-                  });
-              });
-
-              // Handle checkbox selection (optional)
-              const checkboxes = document.querySelectorAll('.product-checkbox');
-              checkboxes.forEach(checkbox => {
-                  checkbox.addEventListener('change', () => {
-                      // You can add functionality here, like updating the total price when the checkbox is checked.
-                      console.log(checkbox.checked ? "Checked" : "Unchecked");
-                  });
-              });
-
-              // Handle hover images for product containers
-              const images = document.querySelectorAll('.cart-product-container img');
-              images.forEach(img => {
-                  const originalSrc = img.src; // Store the original image source
-                  const hoverSrc = img.getAttribute('data-hover'); // Get the hover image from data-hover
-
-                  // Change image on mouseover
-                  img.addEventListener('mouseover', () => {
-                      if (hoverSrc) {
-                          img.src = hoverSrc; // Update image to hover image
-                      }
-                  });
-
-                  // Revert to original image on mouseout
-                  img.addEventListener('mouseout', () => {
-                      img.src = originalSrc; // Revert to the original image
-                  });
-              });
-          });
-
-          // document.addEventListener('DOMContentLoaded', function () {
-          //     // Function to add product to the cart
-          //     function addToCart(event) {
-          //         const noProductText = document.getElementById('noProductText');
-          //         noProductText.textContent ="";
-                  
-              
-          //         const productCard = event.target.closest('.product-card');  // Find the closest product card
-          //         if (!productCard) return;
-
-          //         // Get the product details
-          //         const productImage = productCard.querySelector('img').src;
-          //         const productName = productCard.querySelector('.product-title').textContent;
-          //         const productPrice = productCard.querySelector('.product-price').textContent;
-          //         const productColor = productCard.querySelector('.product-description').textContent;
-
-          //         // Create a new cart item
-          //         const cartProductContainer = document.getElementById('cart-container').querySelector('.cart-product-container');
-                
-          //         // Create a product row in the cart
-          //         const productRow = document.createElement('div');
-          //         productRow.classList.add('product-row');
-
-          //         productRow.innerHTML = `
-          //             <div class="checkbox-wrapper">
-          //                 <input type="checkbox" class="product-checkbox">
-          //                 <label></label>
-          //             </div>
-          //             <div class="product-img" style="background-image: url(${productImage});"></div>
-          //             <div class="product-text">
-          //                 <span class="product-name">${productName}</span>
-          //                 <span class="product-color">${productColor}</span>
-          //             </div>
-          //             <div class="quantity-box">
-          //                 <button class="minus">
-          //                     <img src="assets/buttons/minus-sign.png" alt="minus">
-          //                 </button>
-          //                 <input class="quantity" type="text" value="1" style="width: 30px; text-align: center; margin: 0 10px;">
-          //                 <button class="plus">
-          //                     <img src="assets/buttons/plus-sign.png" alt="plus">
-          //                 </button>
-          //             </div>
-          //             <div class="product-price">${productPrice}</div>
-          //             <button class="remove-btn">
-          //                 <img src="assets/buttons/remove-button.png" alt="remove">
-          //             </button>
-          //         `;
-
-          //         // Append the new product row to the cart
-          //         cartProductContainer.appendChild(productRow);
-
-          //         // Add event listener for removing the product
-          //         const removeBtn = productRow.querySelector('.remove-btn');
-          //         removeBtn.addEventListener('click', function () {
-          //             productRow.remove();  // Remove the product from the cart
-          //         });
-
-          //         // Handle quantity buttons (minus and plus)
-          //         const minusButton = productRow.querySelector('.minus');
-          //         const plusButton = productRow.querySelector('.plus');
-          //         const quantityInput = productRow.querySelector('.quantity');
-
-          //         minusButton.addEventListener('click', () => {
-          //             let currentQuantity = parseInt(quantityInput.value, 10);
-          //             if (!isNaN(currentQuantity) && currentQuantity > 1) {
-          //                 quantityInput.value = currentQuantity - 1;
-          //             }
-          //         });
-
-          //         plusButton.addEventListener('click', () => {
-          //             let currentQuantity = parseInt(quantityInput.value, 10);
-          //             if (!isNaN(currentQuantity)) {
-          //                 quantityInput.value = currentQuantity + 1;
-          //             }
-          //         });
-
-          //         const productRows = document.querySelectorAll('.product-row');
-            
-          //       productRows.forEach((row, index) => {
-          //         // Get the checkbox input and label elements within each product row
-          //         const checkbox = row.querySelector('.product-checkbox');
-          //         const label = row.querySelector('label');
-
-          //         // Generate a unique ID for each checkbox
-          //         const checkboxId = `checkbox-${index + 1}`;
-          //         checkbox.id = checkboxId;
-          //         label.setAttribute('for', checkboxId);
-
-          //         // Add an event listener for the checkbox change event
-          //         checkbox.addEventListener('change', function() {
-          //           if (this.checked) {
-          //             label.classList.add('checked'); // Add 'checked' class if the checkbox is checked
-          //           } else {
-          //             label.classList.remove('checked'); // Remove 'checked' class if unchecked
-          //           }
-          //         });
-          //       });
-          //         }
-
-          //     // Add event listeners to all "Add to cart" buttons
-          //     const addToCartButtons = document.querySelectorAll('.add-to-cart');
-          //     addToCartButtons.forEach(button => {
-          //         button.addEventListener('click', addToCart);
-          //     });
-          // });
-
-
-          document.addEventListener("DOMContentLoaded", () => {
-              // Select all product rows
-              const productRows = document.querySelectorAll('.product-row');
-            
-              productRows.forEach((row, index) => {
-                // Get the checkbox input and label elements within each product row
-                const checkbox = row.querySelector('.product-checkbox');
-                const label = row.querySelector('label');
-            
-                // Generate a unique ID for each checkbox
-                const checkboxId = `checkbox-${index + 1}`;
-                checkbox.id = checkboxId;
-                label.setAttribute('for', checkboxId);
-            
-                // Add an event listener for the checkbox change event
-                checkbox.addEventListener('change', function() {
-                  if (this.checked) {
-                    label.classList.add('checked'); // Add 'checked' class if the checkbox is checked
-                  } else {
-                    label.classList.remove('checked'); // Remove 'checked' class if unchecked
-                  }
-                });
-              });
-            });
-
-            
-          document.addEventListener('DOMContentLoaded', () => {
-            const addToCartButtons = document.querySelectorAll('.add-to-cart');
-            
-            
-            // Function to handle adding a product to the cart
-            addToCartButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                  const noProductText = document.getElementById('noProductText');
-                    noProductText.textContent ="";
-                    // Store the original text and style of the button before changing
-                    this.dataset.originalText = this.textContent;
-                    this.dataset.originalFontSize = this.style.fontSize;
-                    this.dataset.originalBackgroundColor = this.style.backgroundColor;
-                    
-                    // Update button text and style when clicked
-                    this.textContent = 'Added to Cart';  // Change text
-                    this.style.fontSize = '11px';  // Set font size to 11px
-                    this.style.backgroundColor = 'darkgray';  // Set background color to dark gray
-                    this.style.display = 'block';  // Ensure the button is displayed as block
-                    
-                    // Get product details and add to cart (existing functionality)
-                    const productCard = this.closest('.product-card');
-                    if (!productCard) return;
-
-                    const productImage = productCard.querySelector('img').src;
-                    const productName = productCard.querySelector('.product-title').textContent;
-                    const productPrice = productCard.querySelector('.product-price').textContent;
-                    const productColor = productCard.querySelector('.product-description').textContent;
-
-                    const cartProductContainer = document.getElementById('cart-container').querySelector('.cart-product-container');
-                    const productRow = document.createElement('div');
-                    productRow.classList.add('product-row');
-
-                    productRow.innerHTML = `
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="product-checkbox">
-                            <label></label>
-                        </div>
-                        <div class="product-img" style="background-image: url(${productImage});"></div>
-                        <div class="product-text">
-                            <span class="product-name">${productName}</span>
-                            <span class="product-color">${productColor}</span>
-                        </div>
-                        <div class="quantity-box">
-                            <button class="minus">
-                                <img src="assets/buttons/minus-sign.png" alt="minus">
-                            </button>
-                            <input class="quantity" type="text" value="1" style="width: 30px; text-align: center; margin: 0 10px;">
-                            <button class="plus">
-                                <img src="assets/buttons/plus-sign.png" alt="plus">
-                            </button>
-                        </div>
-                        <div class="product-price">${productPrice}</div>
-                        <button class="remove-btn">
-                            <img src="assets/buttons/remove-button.png" alt="remove">
-                        </button>
-                    `;
-
-                    cartProductContainer.appendChild(productRow);
-
-                    const removeBtn = productRow.querySelector('.remove-btn');
-                    removeBtn.addEventListener('click', function() {
-                        productRow.remove();  // Remove the product from the cart
-
-                        // Reset the button text and style when product is removed
-                        const addToCartButton = productCard.querySelector('.add-to-cart');
-                        if (addToCartButton) {
-                            addToCartButton.textContent = addToCartButton.dataset.originalText || 'Add to Cart';
-                            addToCartButton.style.fontSize = addToCartButton.dataset.originalFontSize || '';  // Reset font size
-                            addToCartButton.style.backgroundColor = addToCartButton.dataset.originalBackgroundColor || '';  // Reset background color
-                            addToCartButton.style.display = '';  // Reset display property
-                        }
-                    });
-
-                    // Handle quantity buttons (minus and plus)
-                    const minusButton = productRow.querySelector('.minus');
-                    const plusButton = productRow.querySelector('.plus');
-                    const quantityInput = productRow.querySelector('.quantity');
-
-                    minusButton.addEventListener('click', () => {
-                        let currentQuantity = parseInt(quantityInput.value, 10);
-                        if (!isNaN(currentQuantity) && currentQuantity > 1) {
-                            quantityInput.value = currentQuantity - 1;
-                        }
-                    });
-
-                    plusButton.addEventListener('click', () => {
-                        let currentQuantity = parseInt(quantityInput.value, 10);
-                        if (!isNaN(currentQuantity)) {
-                            quantityInput.value = currentQuantity + 1;
-                        }
-                    });
-
-                    const productRows = document.querySelectorAll('.product-row');
-                    productRows.forEach((row, index) => {
-                        const checkbox = row.querySelector('.product-checkbox');
-                        const label = row.querySelector('label');
-                        const checkboxId = `checkbox-${index + 1}`;
-                        checkbox.id = checkboxId;
-                        label.setAttribute('for', checkboxId);
-
-                        checkbox.addEventListener('change', function() {
-                            if (this.checked) {
-                                label.classList.add('checked');
-                            } else {
-                                label.classList.remove('checked');
-                            }
-                        });
-                    });
-                });
-            });
-        });
-
-        </script>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <meta name="description" content="Browse the latest eyewear collection at EyeDeal. Shop fashionable sunglasses and optical glasses at affordable prices.">
+      
+      <meta name="robots" content="index, follow">
+      
+      <meta property="og:title" content="EyeDeal - Products">
+      <meta property="og:description" content="Shop a wide range of eyewear including sunglasses and optical glasses at EyeDeal.">
+      <meta property="og:image" content="path/to/your/og-image.jpg">
+      <meta property="og:url" content="https://www.eyedeal.com/products">
+      
+      <meta name="twitter:card" content="summary_large_image"> =
+      <meta name="twitter:title" content="EyeDeal - Products">
+      <meta name="twitter:description" content="Explore our eyewear collection at EyeDeal. Find the best sunglasses and optical glasses for any occasion.">
+      <meta name="twitter:image" content="path/to/your/twitter-image.jpg">
+      
+      <title>EyeDeal - Products</title>
+      
+      <link rel="stylesheet" href="../EyeDeal/css/products-style.css"> 
+      <script src="../EyeDeal/scripts/products-script.js" defer></script> 
+      
     </head>
 
-    <body>
-        <div class="main-container">
+    <body lang="en">
+        <div class="main-container" role="main" aria-labelledby="main-content">
 
-            <nav class="navbar">
-                <div class="navdiv">
-                    <div class="logo"><img class="logo-img" src="assets/logo2.png" alt="logo"></div>
-                    <input type="search" name="q" value="" placeholder="Search" class="search__field ui-autocomplete-input bc-sf-search-box" oninput="overrideDisplay()" onclick="overrideDisplay()" id="bc-sf-search-box-0" aria-live="polite" autocomplete="off" data-search-box="#bc-sf-search-box-0">
-                    <ul>
-                      <li><a href="http://127.0.0.1:5500/.HCI-Web/home.html">Home</a></li>
-                      <li><a href="http://127.0.0.1:5500/.HCI-Web/products.html">Products</a></li>
-                      <button id="cart-button" onclick="toggleCartVisibility('click')"><p>Cart</p></button>
-                    </ul>
-                </div>
-            </nav>
+          <nav class="navbar" role="navigation" aria-label="Main navigation">
+            <div class="navdiv">
+              <div class="logo">
+                <img class="logo-img" src="assets/logo2.png" alt="Company Logo">
+              </div>
+              <input type="search" name="q" value="" placeholder="Search" class="search__field ui-autocomplete-input bc-sf-search-box" oninput="overrideDisplay()" onclick="overrideDisplay()" id="bc-sf-search-box-0" aria-label="Search the site" autocomplete="off" data-search-box="#bc-sf-search-box-0">
+              <ul>
+                <li><a href="home.html" aria-label="Go to homepage">Home</a></li>
+                <li><a href="products.html" aria-label="Browse products">Products</a></li>
+                <li>
+                  <button id="cart-button" onclick="toggleCartVisibility('click')" aria-label="View cart">
+                    <p>Cart</p>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </nav>          
 
-            <section class="main-img-highlight">
-                <div class="img-placeholder"></div>
+            <section class="main-img-highlight" aria-labelledby="mainImgHeading">
+              <div class="img-placeholder" aria-label="Main image highlight area"></div>
             </section>
-
-              <div class="filter-container" bis_skin_checked="1">
-                <div class="filter-wrapper" bis_skin_checked="1">
-                  <div class="left-filter-wrapper" bis_skin_checked="1">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            
+            <div class="filter-container" role="region" aria-labelledby="filterHeading">
+              <div class="filter-wrapper">
+                <div class="left-filter-wrapper">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path d="M12 16.4547H2M22 16.4547H17M6 7.54562H2M22 7.54562L11 7.54562" stroke="#352B27" stroke-linecap="round"></path>
                     <path d="M17 16.5001C17 15.1194 15.8807 14.0001 14.5 14.0001C13.1193 14.0001 12 15.1194 12 16.5001C12 17.8808 13.1193 19.0001 14.5 19.0001C15.8807 19.0001 17 17.8808 17 16.5001Z" fill="#352B27"></path>
                     <path d="M11 7.50012C11 6.11941 9.88071 5.00012 8.5 5.00012C7.11929 5.00012 6 6.11941 6 7.50012C6 8.88083 7.11929 10.0001 8.5 10.0001C9.88071 10.0001 11 8.88083 11 7.50012Z" fill="#352B27"></path>
                   </svg>
-                    <span>Filter</span>
-                  </div>
-
-                  <div class="form-box">
-                    <div class="button-box">
-                      <div id="btn"></div>
-                      <button type="button" class="toggle-btn" id="sunglasses" onclick="sunglassesClick()">Sunglasses</button>
-                      <button type="button" class="toggle-btn"  id="optical" onclick="opticalClick()">Optical</button>
-                    </div>
-                  </div>
-
-                  <div class="right-filter-wrapper" bis_skin_checked="1">
-                    <div id="bc-sf-filter-top-sorting" bis_skin_checked="1"><label for="bc-sf-filter-top-sorting-select" class="label--hidden"><span id="selected-sorting"></span></label><select id="bc-sf-filter-top-sorting-select" class="collection-sort__input" onchange="updateSelectedSorting(this.value)"><option value="best-selling">Best selling</option><option value="title-ascending">Alphabetically: A to Z</option><option value="title-descending">Alphabetically: Z to A</option><option value="price-ascending">Price: Low to High</option><option value="price-descending">Price: High to Low</option><option value="created-ascending">Date, old to new</option><option value="created-descending">Date, new to old</option></select></div>
+                  <span id="filterHeading" class="filter-heading" aria-hidden="true">Filter</span>
+                </div>
+            
+                <div class="form-box">
+                  <div class="button-box">
+                    <div id="btn"></div>
+                    <button type="button" class="toggle-btn" id="sunglasses" onclick="sunglassesClick()" aria-pressed="false" aria-label="Filter for sunglasses">Sunglasses</button>
+                    <button type="button" class="toggle-btn" id="optical" onclick="opticalClick()" aria-pressed="false" aria-label="Filter for optical glasses">Optical</button>
                   </div>
                 </div>
-                <div class="filter-selection-display" bis_skin_checked="1">
-                  <span id="names-display-span" class="selectedCountHidden"></span>
+            
+                <div class="right-filter-wrapper">
+                  <div id="bc-sf-filter-top-sorting" role="group" aria-labelledby="sortingLabel">
+                    <label for="bc-sf-filter-top-sorting-select" id="sortingLabel" class="label--hidden">Sort by</label>
+                    <select id="bc-sf-filter-top-sorting-select" class="collection-sort__input" onchange="updateSelectedSorting(this.value)" aria-label="Select sorting option">
+                      <option value="best-selling">Best selling</option>
+                      <option value="title-ascending">Alphabetically: A to Z</option>
+                      <option value="title-descending">Alphabetically: Z to A</option>
+                      <option value="price-ascending">Price: Low to High</option>
+                      <option value="price-descending">Price: High to Low</option>
+                      <option value="created-ascending">Date, old to new</option>
+                      <option value="created-descending">Date, new to old</option>
+                    </select>
+                  </div>
                 </div>
-                <div class="filter-container-liner" bis_skin_checked="1"></div>
               </div>
+            
+              <div class="filter-selection-display" aria-live="polite">
+                <span id="names-display-span" class="selectedCountHidden" aria-hidden="true"></span>
+              </div>
+            
+              <div class="filter-container-liner" aria-hidden="true"></div>
+            </div>            
 
-            <section class="sunglasses-products">
-                <p class="subheading">Men</p>
-                <div class="products-main-container">
-                  
-                    <div class="product-card">
-                        <div class="product-image">
-                          <img src="assets/products/sunglasses/Iris - Classic Tort/folded.webp" alt="Iris">
-                          <button class="add-to-cart">Add to cart</button>
-                        </div>
-                        <div class="product-details">
-                          <div class="productSpecifics">
-                            <h3 class="product-title">Lace</h3>
-                            <h3 class="product-price">$24</h3>
-                          </div>
-                          <p class="product-description">Beige</p>
-                        </div>
+            <section class="sunglasses-products" aria-labelledby="sunglassesProductsHeading">
+              <p id="sunglassesProductsHeading" class="subheading">For Him</p>
+              <div class="products-main-container" role="region" aria-label="For Him Sunglasses">
+            
+                <div class="product-card" role="listitem" aria-labelledby="irisTitle">
+                  <div class="product-image">
+                    <img src="assets/products/sunglasses/Iris - Classic Tort/folded.webp" alt="Iris - Classic Tort frame" aria-describedby="irisDescription">
+                    <button class="add-to-cart" aria-label="Add Iris to cart">Add to cart</button>
+                  </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="irisTitle" class="product-title">Iris</h3>
+                      <h3 class="product-price" aria-label="Price">$30</h3>
                     </div>
-
-                    <div class="product-card">
-                        <div class="product-image">
-                          <img src="assets/products/sunglasses/Jax - Ink Polarized/folded.webp" alt="Jax">
-                          <button class="add-to-cart">Add to cart</button>
-                        </div>
-                        <div class="product-details">
-                          <h3 class="product-title">Jax<span class="product-price">$24</span></h3>
-                          <p class="product-description">Ink</p>
-                        </div>
-                      </div>
-
-                      <div class="product-card">
-                        <div class="product-image">
-                          <img src="assets/products/sunglasses/Leon - Gold Green/folded.webp" alt="Leon">
-                          <button class="add-to-cart" id="add-to-cart">Add to cart</button>
-                        </div>
-                        <div class="product-details">
-                          <h3 class="product-title">Leon<span class="product-price">$24</span></h3>
-                          <p class="product-description">Mint</p>
-                        </div>
-                      </div>
-
-                      <div class="product-card">
-                        <div class="product-image">
-                          <img src="assets/products/sunglasses/Nori - Shale/folded.webp" alt="Nori">
-                          <button class="add-to-cart">Add to cart</button>
-                        </div>
-                        <div class="product-details">
-                          <h3 class="product-title">Nori<span class="product-price">$24</span></h3>
-                          <p class="product-description">Shale</p>
-                        </div>
-                      </div>
-
-                      <div class="product-card">
-                        <div class="product-image">
-                          <img src="assets/products/sunglasses/Zoe - Dune/folded.webp" alt="Zoe">
-                          <button class="add-to-cart">Add to cart</button>
-                        </div>
-                        <div class="product-details">
-                          <h3 class="product-title">Zoe<span class="product-price">$24</span></h3>
-                          <p class="product-description">Dune</p>
-                        </div>
-                      </div>
+                    <p id="irisDescription" class="product-description">Tort</p>
+                  </div>
                 </div>
- 
-                <p class="subheading">Women</p>
-                <div class="products-main-container">
-                    <div class="product-card">
-                        <div class="product-image">
-                          <img src="assets//products/sunglasses/Liv - Cashmere/folded.webp" alt="Caine">
-                          <button class="add-to-cart">Add to cart</button>
-                        </div>
-                        <div class="product-details">
-                          <h3 class="product-title">Liv<span class="product-price">$24</span></h3>
-                          <p class="product-description">Cashmere</p>
-                        </div>
+            
+                <div class="product-card" role="listitem" aria-labelledby="jaxTitle">
+                  <div class="product-image">
+                    <img src="assets/products/sunglasses/Jax - Ink Polarized/folded.webp" alt="Jax - Ink Polarized frame" aria-describedby="jaxDescription">
+                    <button class="add-to-cart" aria-label="Add Jax to cart">Add to cart</button>
+                  </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="jaxTitle" class="product-title">Jax</h3>
+                      <h3 class="product-price" aria-label="Price">$20</h3>
                     </div>
-
-                    <div class="product-card">
-                        <div class="product-image">
-                          <img src="assets/products/sunglasses/Luca - White Gold/folded.webp" alt="Enid">
-                          <button class="add-to-cart">Add to cart</button>
-                        </div>
-                        <div class="product-details">
-                          <h3 class="product-title">Luca<span class="product-price">$24</span></h3>
-                          <p class="product-description">WhiteGold</p>
-                        </div>
-                      </div>
-
-                      <div class="product-card">
-                        <div class="product-image">
-                          <img src="assets/products/sunglasses/Nolan - Shale Orion Polarized/folded.webp" alt="Lucy">
-                          <button class="add-to-cart">Add to cart</button>
-                        </div>
-                        <div class="product-details">
-                          <h3 class="product-title">Nolan<span class="product-price">$24</span></h3>
-                          <p class="product-description">ShaleOrion</p>
-                        </div>
-                      </div>
-
-                      <div class="product-card">
-                        <div class="product-image">
-                          <img src="assets/products/sunglasses/Simone - Venus/folded.webp" alt="Phoebe">
-                          <button class="add-to-cart">Add to cart</button>
-                        </div>
-                        <div class="product-details">
-                          <h3 class="product-title">Simone<span class="product-price">$24</span></h3>
-                          <p class="product-description">Venus</p>
-                        </div>
-                      </div>
-
-                      <div class="product-card">
-                        <div class="product-image">
-                          <img src="assets/products/sunglasses/Rio - Classic/folded.webp" alt="Tippy">
-                          <button class="add-to-cart">Add to cart</button>
-                        </div>
-                        <div class="product-details">
-                          <h3 class="product-title">Rio<span class="product-price">$24</span></h3>
-                          <p class="product-description">Classic</p>
-                        </div>
-                      </div>
-
-                    
-
-
+                    <p id="jaxDescription" class="product-description">Ink</p>
+                  </div>
                 </div>
+            
+                <div class="product-card" role="listitem" aria-labelledby="leonTitle">
+                  <div class="product-image">
+                    <img src="assets/products/sunglasses/Leon - Gold Green/folded.webp" alt="Leon - Gold Green frame" aria-describedby="leonDescription">
+                    <button class="add-to-cart" aria-label="Add Leon to cart">Add to cart</button>
+                  </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="leonTitle" class="product-title">Leon</h3>
+                      <h3 class="product-price" aria-label="Price">$40</h3>
+                    </div>
+                    <p id="leonDescription" class="product-description">Mint</p>
+                  </div>
+                </div>
+            
+                <div class="product-card" role="listitem" aria-labelledby="noriTitle">
+                  <div class="product-image">
+                    <img src="assets/products/sunglasses/Nori - Shale/folded.webp" alt="Nori - Shale frame" aria-describedby="noriDescription">
+                    <button class="add-to-cart" aria-label="Add Nori to cart">Add to cart</button>
+                  </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="noriTitle" class="product-title">Nori</h3>
+                      <h3 class="product-price" aria-label="Price">$45</h3>
+                    </div>
+                    <p id="noriDescription" class="product-description">Shale</p>
+                  </div>
+                </div>
+            
+                <div class="product-card" role="listitem" aria-labelledby="zoeTitle">
+                  <div class="product-image">
+                    <img src="assets/products/sunglasses/Zoe - Dune/folded.webp" alt="Zoe - Dune frame" aria-describedby="zoeDescription">
+                    <button class="add-to-cart" aria-label="Add Zoe to cart">Add to cart</button>
+                  </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="zoeTitle" class="product-title">Zoe</h3>
+                      <h3 class="product-price" aria-label="Price">$50</h3>
+                    </div>
+                    <p id="zoeDescription" class="product-description">Dune</p>
+                  </div>
+                </div>
+            
+              </div>
+            
+              <p id="forHerHeading" class="subheading">For Her</p>
+              <div class="products-main-container" role="region" aria-label="For Her Sunglasses">
+            
+                <div class="product-card" role="listitem" aria-labelledby="livTitle">
+                  <div class="product-image">
+                    <img src="assets/products/sunglasses/Liv - Cashmere/folded.webp" alt="Liv - Cashmere frame" aria-describedby="livDescription">
+                    <button class="add-to-cart" aria-label="Add Liv to cart">Add to cart</button>
+                  </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="livTitle" class="product-title">Liv</h3>
+                      <h3 class="product-price" aria-label="Price">$30</h3>
+                    </div>
+                    <p id="livDescription" class="product-description">Cashmere</p>
+                  </div>
+                </div>
+            
+                <div class="product-card" role="listitem" aria-labelledby="enidTitle">
+                  <div class="product-image">
+                    <img src="assets/products/sunglasses/Luca - White Gold/folded.webp" alt="Luca - White Gold frame" aria-describedby="enidDescription">
+                    <button class="add-to-cart" aria-label="Add Luca to cart">Add to cart</button>
+                  </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="enidTitle" class="product-title">Enid</h3>
+                      <h3 class="product-price" aria-label="Price">$25</h3>
+                    </div>
+                    <p id="enidDescription" class="product-description">WhiteGold</p>
+                  </div>
+                </div>
+            
+                <div class="product-card" role="listitem" aria-labelledby="nolanTitle">
+                  <div class="product-image">
+                    <img src="assets/products/sunglasses/Nolan - Shale Orion Polarized/folded.webp" alt="Nolan - Shale Orion Polarized frame" aria-describedby="nolanDescription">
+                    <button class="add-to-cart" aria-label="Add Nolan to cart">Add to cart</button>
+                  </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="nolanTitle" class="product-title">Nolan</h3>
+                      <h3 class="product-price" aria-label="Price">$45</h3>
+                    </div>
+                    <p id="nolanDescription" class="product-description">Orion</p>
+                  </div>
+                </div>
+            
+                <div class="product-card" role="listitem" aria-labelledby="simoneTitle">
+                  <div class="product-image">
+                    <img src="assets/products/sunglasses/Simone - Venus/folded.webp" alt="Simone - Venus frame" aria-describedby="simoneDescription">
+                    <button class="add-to-cart" aria-label="Add Simone to cart">Add to cart</button>
+                  </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="simoneTitle" class="product-title">Simone</h3>
+                      <h3 class="product-price" aria-label="Price">$65</h3>
+                    </div>
+                    <p id="simoneDescription" class="product-description">Venus</p>
+                  </div>
+                </div>
+            
+                <div class="product-card" role="listitem" aria-labelledby="rioTitle">
+                  <div class="product-image">
+                    <img src="assets/products/sunglasses/Rio - Classic/folded.webp" alt="Rio - Classic frame" aria-describedby="rioDescription">
+                    <button class="add-to-cart" aria-label="Add Rio to cart">Add to cart</button>
+                  </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="rioTitle" class="product-title">Rio</h3>
+                      <h3 class="product-price" aria-label="Price">$55</h3>
+                    </div>
+                    <p id="rioDescription" class="product-description">Classic</p>
+                  </div>
+                </div>
+            
+              </div>
             </section>
+            
 
-            <section class="optical-products">
-              <p class="subheading">Optical Page</p>
-              <div class="products-main-container">
-                  <div class="product-card">
-                      <div class="product-image">
-                        <img src="assets/products/optical/Caine - Dark Tort/folded.webp" alt="Caine">
-                        <button class="add-to-cart">Add to cart</button>
-                      </div>
-                      <div class="product-details">
-                        <h3 class="product-title">Caine<span class="product-price">$24</span></h3>
-                        <p class="product-description">DarkTort</p>
-                      </div>
+            <section class="optical-products" aria-labelledby="opticalProductsHeading">
+              <p id="opticalProductsHeading" class="subheading">Chic</p>
+              <div class="products-main-container" role="region" aria-label="Chic Optical Products">
+                
+                <div class="product-card" role="listitem" aria-labelledby="asterTitle">
+                  <div class="product-image">
+                    <img src="assets/products/optical/Aster-Silver.webp" alt="Aster - Silver frame" aria-describedby="asterDescription">
+                    <button class="add-to-cart" aria-label="Add Aster to cart">Add to cart</button>
                   </div>
-
-                  <div class="product-card">
-                      <div class="product-image">
-                        <img src="assets/products/sunglasses/Jax - Ink Polarized/folded.webp" alt="Jax">
-                        <button class="add-to-cart">Add to cart</button>
-                      </div>
-                      <div class="product-details">
-                        <h3 class="product-title">Jax<span class="product-price">$24</span></h3>
-                        <p class="product-description">Ink</p>
-                      </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="asterTitle" class="product-title">Aster</h3>
+                      <h3 class="product-price" aria-label="Price">$30</h3>
                     </div>
-
-                    <div class="product-card">
-                      <div class="product-image">
-                        <img src="assets/products/sunglasses/Leon - Gold Green/folded.webp" alt="Leon">
-                        <button class="add-to-cart">Add to cart</button>
-                      </div>
-                      <div class="product-details">
-                        <h3 class="product-title">Leon<span class="product-price">$24</span></h3>
-                        <p class="product-description">Mint</p>
-                      </div>
-                    </div>
-
-                    <div class="product-card">
-                      <div class="product-image">
-                        <img src="assets/products/sunglasses/Nori - Shale/folded.webp" alt="Nori">
-                        <button class="add-to-cart">Add to cart</button>
-                      </div>
-                      <div class="product-details">
-                        <h3 class="product-title">Nori<span class="product-price">$24</span></h3>
-                        <p class="product-description">Shale</p>
-                      </div>
-                    </div>
-
-                    <div class="product-card">
-                      <div class="product-image">
-                        <img src="assets/products/sunglasses/Zoe - Dune/folded.webp" alt="Zoe">
-                        <button class="add-to-cart">Add to cart</button>
-                      </div>
-                      <div class="product-details">
-                        <h3 class="product-title">Zoe<span class="product-price">$24</span></h3>
-                        <p class="product-description">Dune</p>
-                      </div>
-                    </div>
-              </div>
-
-              <p class="subheading">Optical</p>
-              <div class="products-main-container">
-                  <div class="product-card">
-                      <div class="product-image">
-                        <img src="assets//products/optical/Caine - Dark Tort/folded.webp" alt="Caine">
-                        <button class="add-to-cart">Add to cart</button>
-                      </div>
-                      <div class="product-details">
-                        <h3 class="product-title">Caine<span class="product-price">$24</span></h3>
-                        <p class="product-description">DarkTort</p>
-                      </div>
+                    <p id="asterDescription" class="product-description">Silver</p>
                   </div>
-
-                  <div class="product-card">
-                      <div class="product-image">
-                        <img src="assets/products/optical/Enid - Tinsel/folded.webp" alt="Enid">
-                        <button class="add-to-cart">Add to cart</button>
-                      </div>
-                      <div class="product-details">
-                        <h3 class="product-title">Enid<span class="product-price">$24</span></h3>
-                        <p class="product-description">Tinsel</p>
-                      </div>
+                </div>
+            
+                <div class="product-card" role="listitem" aria-labelledby="pennyTitle">
+                  <div class="product-image">
+                    <img src="assets/products/optical/Penny-Tan.webp" alt="Penny - Tan frame" aria-describedby="pennyDescription">
+                    <button class="add-to-cart" aria-label="Add Penny to cart">Add to cart</button>
+                  </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="pennyTitle" class="product-title">Penny</h3>
+                      <h3 class="product-price" aria-label="Price">$40</h3>
                     </div>
-
-                    <div class="product-card">
-                      <div class="product-image">
-                        <img src="assets/products/optical/Lucy - Crimson/folded.webp" alt="Lucy">
-                        <button class="add-to-cart">Add to cart</button>
-                      </div>
-                      <div class="product-details">
-                        <h3 class="product-title">Lucy<span class="product-price">$24</span></h3>
-                        <p class="product-description">Crimson</p>
-                      </div>
+                    <p id="pennyDescription" class="product-description">Tan</p>
+                  </div>
+                </div>
+            
+                <div class="product-card" role="listitem" aria-labelledby="kittyTitle">
+                  <div class="product-image">
+                    <img src="assets/products/optical/Kitty-Tinsel.webp" alt="Kitty - Tinsel frame" aria-describedby="kittyDescription">
+                    <button class="add-to-cart" aria-label="Add Kitty to cart">Add to cart</button>
+                  </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="kittyTitle" class="product-title">Kitty</h3>
+                      <h3 class="product-price" aria-label="Price">$20</h3>
                     </div>
-
-                    <div class="product-card">
-                      <div class="product-image">
-                        <img src="assets/products/optical/Phoebe - Silver/folded.webp" alt="Phoebe">
-                        <button class="add-to-cart">Add to cart</button>
-                      </div>
-                      <div class="product-details">
-                        <h3 class="product-title">Phoebe<span class="product-price">$24</span></h3>
-                        <p class="product-description">Silver</p>
-                      </div>
+                    <p id="kittyDescription" class="product-description">Tinsel</p>
+                  </div>
+                </div>
+            
+                <div class="product-card" role="listitem" aria-labelledby="trumanTitle">
+                  <div class="product-image">
+                    <img src="assets/products/optical/Truman-Marble.webp" alt="Truman - Marble frame" aria-describedby="trumanDescription">
+                    <button class="add-to-cart" aria-label="Add Truman to cart">Add to cart</button>
+                  </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="trumanTitle" class="product-title">Truman</h3>
+                      <h3 class="product-price" aria-label="Price">$50</h3>
                     </div>
-
-                    <div class="product-card">
-                      <div class="product-image">
-                        <img src="assets/products/optical/Tippy - NutMeg/folded.webp" alt="Tippy">
-                        <button class="add-to-cart">Add to cart</button>
-                      </div>
-                      <div class="product-details">
-                        <h3 class="product-title">Tippy<span class="product-price">$24</span></h3>
-                        <p class="product-description">Nutmeg</p>
-                      </div>
+                    <p id="trumanDescription" class="product-description">Marble</p>
+                  </div>
+                </div>
+            
+                <div class="product-card" role="listitem" aria-labelledby="laneTitle">
+                  <div class="product-image">
+                    <img src="assets/products/optical/Lane-Taffy.webp" alt="Lane - Taffy frame" aria-describedby="laneDescription">
+                    <button class="add-to-cart" aria-label="Add Lane to cart">Add to cart</button>
+                  </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="laneTitle" class="product-title">Lane</h3>
+                      <h3 class="product-price" aria-label="Price">$60</h3>
                     </div>
-
-                  
-
-
+                    <p id="laneDescription" class="product-description">Taffy</p>
+                  </div>
+                </div>
+            
               </div>
-
-              
-
-                
-                
-                
-
-          </section>
-
-
-          <div class="popup-overlay" id="cart-container">
-              
-            <div class="headingTexts">
-              <h1 class="shopping-cart-title">Shopping Cart</h1>
-              <button class="cart-close-btn" onclick="toggleCartVisibility('close')">&times;</button>
-            </div>
-          
-            <div class="cart-product-container">
-                <!-- Example product row 1 -->
-                <p id="noProductText" style="color: gray;">Oops..It seems you do not have a product in your cart yet.</p>
-                <!-- <div class="product-row">
-                    <div class="checkbox-wrapper">
-                        <input type="checkbox" class="product-checkbox">
-                        <label></label>
+            
+              <p id="classyHeading" class="subheading">Classy</p>
+              <div class="products-main-container" role="region" aria-label="Classy Optical Products">
+            
+                <div class="product-card" role="listitem" aria-labelledby="caineTitle">
+                  <div class="product-image">
+                    <img src="assets/products/optical/Caine - Dark Tort/folded.webp" alt="Caine - Dark Tort frame" aria-describedby="caineDescription">
+                    <button class="add-to-cart" aria-label="Add Caine to cart">Add to cart</button>
+                  </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="caineTitle" class="product-title">Caine</h3>
+                      <h3 class="product-price" aria-label="Price">$50</h3>
                     </div>
-                    <div class="product-img"></div>
-                    <div class="product-text">
-                        <span class="product-category">Optical</span>
-                        <span class="product-name">Lace</span>
+                    <p id="caineDescription" class="product-description">DarkTort</p>
+                  </div>
+                </div>
+            
+                <div class="product-card" role="listitem" aria-labelledby="enidTitle">
+                  <div class="product-image">
+                    <img src="assets/products/optical/Enid - Tinsel/folded.webp" alt="Enid - Tinsel frame" aria-describedby="enidDescription">
+                    <button class="add-to-cart" aria-label="Add Enid to cart">Add to cart</button>
+                  </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="enidTitle" class="product-title">Enid</h3>
+                      <h3 class="product-price" aria-label="Price">$60</h3>
                     </div>
-        
-                    <div class="quantity-box">
-                        <button class="minus">
-                            <img src="assets/buttons/minus-sign.png" alt="minus">
-                        </button>
-                        <input class="quantity" type="text" value="1" style="width: 30px; text-align: center; margin: 0 10px;">
-                        <button class="plus">
-                            <img src="assets/buttons/plus-sign.png" alt="plus">
-                        </button>
+                    <p id="enidDescription" class="product-description">Tinsel</p>
+                  </div>
+                </div>
+            
+                <div class="product-card" role="listitem" aria-labelledby="lucyTitle">
+                  <div class="product-image">
+                    <img src="assets/products/optical/Lucy - Crimson/folded.webp" alt="Lucy - Crimson frame" aria-describedby="lucyDescription">
+                    <button class="add-to-cart" aria-label="Add Lucy to cart">Add to cart</button>
+                  </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="lucyTitle" class="product-title">Lucy</h3>
+                      <h3 class="product-price" aria-label="Price">$40</h3>
                     </div>
-        
-                    <div class="product-price">$24</div>
-                    <button class="remove-btn">
-                        <img src="assets/buttons/remove-button.png" alt="">
-                    </button>
-                </div> -->
-                <!-- Repeat for other product rows with unique classes for each row -->
+                    <p id="lucyDescription" class="product-description">Crimson</p>
+                  </div>
+                </div>
+            
+                <div class="product-card" role="listitem" aria-labelledby="phoebeTitle">
+                  <div class="product-image">
+                    <img src="assets/products/optical/Phoebe - Silver/folded.webp" alt="Phoebe - Silver frame" aria-describedby="phoebeDescription">
+                    <button class="add-to-cart" aria-label="Add Phoebe to cart">Add to cart</button>
+                  </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="phoebeTitle" class="product-title">Phoebe</h3>
+                      <h3 class="product-price" aria-label="Price">$35</h3>
+                    </div>
+                    <p id="phoebeDescription" class="product-description">Silver</p>
+                  </div>
+                </div>
+            
+                <div class="product-card" role="listitem" aria-labelledby="tippyTitle">
+                  <div class="product-image">
+                    <img src="assets/products/optical/Tippy - NutMeg/folded.webp" alt="Tippy - NutMeg frame" aria-describedby="tippyDescription">
+                    <button class="add-to-cart" aria-label="Add Tippy to cart">Add to cart</button>
+                  </div>
+                  <div class="product-details">
+                    <div class="productSpecifics">
+                      <h3 id="tippyTitle" class="product-title">Tippy</h3>
+                      <h3 class="product-price" aria-label="Price">$55</h3>
+                    </div>
+                    <p id="tippyDescription" class="product-description">Nutmeg</p>
+                  </div>
+                </div>
+            
+              </div>
+            </section>
+            
+
+            <div class="cart-container" id="cart-container" role="dialog" aria-labelledby="shoppingCartTitle" aria-hidden="true">
+              <div class="headingTexts">
+                <h1 id="shoppingCartTitle" class="shopping-cart-title">Shopping Cart</h1>
+                <button class="cart-close-btn" onclick="toggleCartVisibility('close')" aria-label="Close shopping cart">&times;</button>
+              </div>
+            
+              <div class="cart-product-container">
+                <p id="noProductText" style="color: gray;" aria-live="polite">Oops..It seems you do not have a product in your cart yet.</p>
+              </div>
+            
+              <div class="checkout-btn" role="button" aria-label="Proceed to checkout">CHECKOUT</div>
             </div>
-        
-            <div class="checkout-btn">
-                CHECKOUT
+            
+
+            <button class="review-floating-button" onclick="openReviewPopup()" aria-label="Open customer reviews popup">
+              <p>Reviews</p>
+            </button>
+            
+            <div class="review-popup-container" id="reviewPopupContainer" onclick="closeReviewPopupOutside(event)" role="dialog" aria-labelledby="reviewPopupTitle" aria-hidden="true">
+              <div class="review-popup" onclick="event.stopPropagation()">
+                <div class="review-popup-header">
+                  <h2 id="reviewPopupTitle">Customer Reviews</h2>
+                  <span class="review-popup-close" onclick="closeReviewPopup()" aria-label="Close review popup">&times;</span>
+                </div>
+                <div class="review-popup-content">
+                  <!-- Reviews Section -->
+                  <div class="review-item" role="listitem">
+                    <h3>John Doe</h3>
+                    <hr>
+                    <p>Great product! Absolutely loved it.</p>
+                    <div class="review-stars" aria-label="Rating: 5 stars">★★★★★</div>
+                  </div>
+                  <div class="review-item" role="listitem">
+                    <h3>Jane Smith</h3>
+                    <hr>
+                    <p>Good quality but a bit pricey.</p>
+                    <div class="review-stars" aria-label="Rating: 4 stars">★★★★☆</div>
+                  </div>
+            
+                  <!-- Comment Section -->
+                  <h2 style="margin-top: 30px;" id="leaveCommentTitle">Leave a Comment</h2>
+                  <form class="review-comment-form" onsubmit="addReviewComment(event)" aria-labelledby="leaveCommentTitle">
+                    <textarea id="reviewCommentInput" placeholder="Write your comment here..." required aria-label="Write a comment"></textarea>
+                    <button type="submit" aria-label="Submit your comment">Submit</button>
+                  </form>
+            
+                  <div class="review-comments" id="reviewCommentsContainer" role="region" aria-labelledby="commentsSectionTitle">
+                    <h3 id="commentsSectionTitle">Customer Comments</h3>
+                    <!-- Example Comments -->
+                    <div class="review-comment-item" role="listitem">
+                      <p>Great website! Very user-friendly.</p>
+                      <span>Posted on 2024-12-14</span>
+                    </div>
+                    <div class="review-comment-item" role="listitem">
+                      <p>Excellent customer support.</p>
+                      <span>Posted on 2024-12-14</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
+            
+
         </div>
     </body>
 </html>
