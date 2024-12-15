@@ -21,7 +21,7 @@
 ---
 ## ✨Overview
 
-![Sample Image](https://drive.google.com/file/d/1F1x46qFuK_JViu2YqLz-6U2Uzfv6oPZS/view?usp=sharing)  
+![EyeDeal](EyeDeal/assets/screenshot.png)  
 *EyeDeal's Hompage*
 ---
 
