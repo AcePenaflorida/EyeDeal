@@ -1,4 +1,4 @@
-# 👁️EyeDeal👁️
+# EyeDeal
 
 **See the world in full spectrum.**  
 [🎥 **Watch the full demo**](https://drive.google.com/drive/folders/1rXbfE87DFmXpwMx233Lq1BVeNhbrGFKd?usp=sharing)  
